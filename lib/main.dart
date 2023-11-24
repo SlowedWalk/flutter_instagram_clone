@@ -45,3 +45,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+// https://hitech-instagram-clone.firebaseapp.com/__/auth/handler
+// import com.facebook.FacebookSdk;
+// import com.facebook.appevents.AppEventsLogger;
