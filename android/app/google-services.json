@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "286895014988",
+    "project_id": "hitech-instagram-clone",
+    "storage_bucket": "hitech-instagram-clone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286895014988:android:53ede7c406b65c62b0e0e9",
+        "android_client_info": {
+          "package_name": "tech.hidetora.instagram_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1vy-5qlA8X9slA9xYvVn2DWjeeWSTydw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
