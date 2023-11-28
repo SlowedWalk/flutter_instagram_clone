@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart' show Firebase, FirebaseOptions;
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 
-import 'package:instagram_clone/firebase_options.dart';void main() async {
+import 'package:instagram_clone/firebase_options.dart';
+import 'package:instagram_clone/state/auth/backend/authenticator.dart';
+
+extension Log on Object {
+  void log() => debugPrint(toString());
+}
+
+void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -41,6 +48,24 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Instagram Clone'),
         centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithGoogle();
+              result.log();
+            },
+            child: const Text('Sign in with Google'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithFacebook();
+              result.log();
+            },
+            child: const Text('Sign in with Facebook'),
+          ),
+        ],
       ),
     );
   }

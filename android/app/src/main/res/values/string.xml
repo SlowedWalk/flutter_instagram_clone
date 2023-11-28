@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="facebook_app_id">867005358226195</string>
+    <string name="fb_login_protocol_scheme">fb867005358226195</string>
+    <string name="facebook_client_token">f4b28d9faef1afa61edc26f5a209a75d</string>
+    <string name="app_name">hitech-inst-clone</string>
+</resources>
