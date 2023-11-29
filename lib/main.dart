@@ -113,7 +113,9 @@ class _HomePageState extends State<HomePage> {
           Text(_user!.email!),
           Text(_user!.displayName ?? ""),
           MaterialButton(
-            onPressed: _auth.signOut,
+            onPressed: () async {
+              await Authenticator().logout();
+            },
             color: Colors.red,
             child: const Text("Sign Out"),
           )
