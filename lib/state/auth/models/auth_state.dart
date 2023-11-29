@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:instagram_clone/state/auth/models/auth_results.dart';
 import 'package:instagram_clone/state/posts/typedefs/user_id.dart';

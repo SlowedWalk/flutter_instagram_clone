@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -25,10 +27,13 @@ class Authenticator {
   Future<AuthResult> loginWithFacebook() async {
     final loginResult = await FacebookAuth.instance.login();
     final token = loginResult.accessToken?.token;
+    log("Facebook token: $token");
     if (token == null) {
       return AuthResult.aborted;
     }
+
     final credential = FacebookAuthProvider.credential(token);
+
     try {
       await FirebaseAuth.instance.signInWithCredential(credential);
       return AuthResult.success;
@@ -55,7 +60,10 @@ class Authenticator {
 
   Future<AuthResult> loginWithGoogle() async {
     final googleSignIn = GoogleSignIn(
-      scopes: [Constants.emailScope],
+      scopes: [
+        Constants.emailScope,
+        'https://www.googleapis.com/auth/userinfo.profile'
+        ],
     );
 
     final signInAccount = await googleSignIn.signIn();
@@ -74,6 +82,5 @@ class Authenticator {
       return AuthResult.failure;
     }
   }
-
 
 }

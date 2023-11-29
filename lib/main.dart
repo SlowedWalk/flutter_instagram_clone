@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/firebase_options.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
 
@@ -9,10 +10,15 @@ extension Log on Object {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
