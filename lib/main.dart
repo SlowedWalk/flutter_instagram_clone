@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/firebase_options.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 extension Log on Object {
   void log() => debugPrint(toString());
@@ -45,32 +47,76 @@ class App extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _auth.authStateChanges().listen((event) {
+      setState(() {
+        _user = event;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Instagram Clone'),
-        centerTitle: true,
+        title: const Text('Google SignIn'),
       ),
-      body: Column(
+      body: _user != null ? _userInfo() : _googleSignInButton(),
+    );
+  }
+
+  Widget _googleSignInButton() {
+    return Center(
+      child: SizedBox(
+        height: 50,
+        child: SignInButton(
+          Buttons.google,
+          text: "Sign up with Google",
+          onPressed: () async {
+            final result = await Authenticator().loginWithGoogle();
+            result.log();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _userInfo() {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          TextButton(
-            onPressed: () async {
-              final result = await Authenticator().loginWithGoogle();
-              result.log();
-            },
-            child: const Text('Sign in with Google'),
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(image: NetworkImage(_user!.photoURL!)),
+            ),
           ),
-          TextButton(
-            onPressed: () async {
-              final result = await Authenticator().loginWithFacebook();
-              result.log();
-            },
-            child: const Text('Sign in with Facebook'),
-          ),
+          Text(_user!.email!),
+          Text(_user!.displayName ?? ""),
+          MaterialButton(
+            onPressed: _auth.signOut,
+            color: Colors.red,
+            child: const Text("Sign Out"),
+          )
         ],
       ),
     );
