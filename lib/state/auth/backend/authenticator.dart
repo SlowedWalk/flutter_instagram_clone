@@ -36,7 +36,6 @@ class Authenticator {
     if (signInAccount == null) {
       return AuthResult.aborted;
     }
-    log(signInAccount.email);
     final googleAuth = await signInAccount.authentication;
     final oauthCredential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
