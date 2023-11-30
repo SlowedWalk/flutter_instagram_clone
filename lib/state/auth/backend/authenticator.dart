@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/state/auth/constants/constants.dart';
@@ -5,15 +7,16 @@ import 'package:instagram_clone/state/auth/models/auth_results.dart';
 import 'package:instagram_clone/state/posts/typedefs/user_id.dart';
 
 class Authenticator {
-
-  Authenticator();
+  const Authenticator();
 
   UserId? get userId => FirebaseAuth.instance.currentUser?.uid;
   bool get isLoggedIn => userId != null;
-  String get displayName => FirebaseAuth.instance.currentUser?.displayName ?? '';
+  String get displayName =>
+      FirebaseAuth.instance.currentUser?.displayName ?? '';
   String? get email => FirebaseAuth.instance.currentUser?.email;
+  String? get photoUrl => FirebaseAuth.instance.currentUser?.photoURL;
 
-  Future<void> logout() async {
+  Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
@@ -33,6 +36,7 @@ class Authenticator {
     if (signInAccount == null) {
       return AuthResult.aborted;
     }
+    log(signInAccount.email);
     final googleAuth = await signInAccount.authentication;
     final oauthCredential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -45,5 +49,4 @@ class Authenticator {
       return AuthResult.failure;
     }
   }
-
 }
