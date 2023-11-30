@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/state/auth/backend/authenticator.dart';
 import 'package:instagram_clone/state/auth/models/auth_results.dart';

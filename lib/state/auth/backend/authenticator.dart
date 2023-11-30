@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_clone/state/auth/constants/constants.dart';
@@ -18,6 +16,7 @@ class Authenticator {
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
   }
 
   Future<void> signInWithGoogle() async {

@@ -2,17 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart' show Firebase;
 
-import 'dart:developer' show log;
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_clone/firebase_options.dart';
 import 'package:instagram_clone/state/auth/models/auth_results.dart';
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
+import 'package:instagram_clone/state/auth/providers/is_loading_provider.dart';
+import 'package:instagram_clone/views/components/loading/loading_screen.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-
-extension Log on Object {
-  void log() => debugPrint(toString());
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +42,14 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         home: Consumer(builder: (context, ref, child) {
+          ref.listen<bool>(isLoadingProvider, (_, isLoading) {
+            if (isLoading) {
+              LoadingScreen.instance().show(context: context);
+            } else {
+              LoadingScreen.instance().hide();
+            }
+          });
+
           final isLoggedIn =
               ref.watch(authStateProvider).result == AuthResult.success;
           return isLoggedIn ? const MainView() : const LoginView();
@@ -59,7 +63,6 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
         appBar: AppBar(
@@ -67,7 +70,6 @@ class MainView extends StatelessWidget {
         ),
         body: Consumer(builder: (_, ref, child) {
           final isLoading = ref.watch(authStateProvider).isLoading;
-          log("isLoading: $isLoading");
           return isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -92,8 +94,7 @@ class MainView extends StatelessWidget {
                       Text(currentUser.displayName ?? ""),
                       MaterialButton(
                         onPressed: () async {
-                          await ref.read(authStateProvider.notifier)
-                            .logOut();
+                          await ref.read(authStateProvider.notifier).logOut();
                         },
                         color: Colors.red,
                         child: const Text("Sign Out"),

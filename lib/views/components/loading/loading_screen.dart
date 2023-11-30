@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/main.dart';
 import 'package:instagram_clone/views/components/constants/strings.dart';
 import 'package:instagram_clone/views/components/loading/loading_screen_controller.dart';
 
@@ -44,7 +43,6 @@ class LoadingScreen {
 
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
-    size.log();
 
     final overlay = OverlayEntry(builder: (context) {
       return Material(
