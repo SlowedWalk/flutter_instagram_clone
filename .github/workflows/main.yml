@@ -8,6 +8,7 @@ env:
   FLUTTER_CHANNEL: "stable"
   JAVA_VERSION: "17.x"
   JAVA_DISTRIBUTION: "zulu"
+  APP_NAME: "hitec-insta"
 
 on:
   push:
@@ -86,8 +87,6 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
-          release-version: ${{ steps.date.outputs.date }}
-          release-name: ${{ steps.date.outputs.date }}
-          release-notes: ${{ steps.date.outputs.date }}
+          name: release-${{ steps.date.outputs.date }}-${{env.APP_NAME}}.apk
           draft: false
           prerelease: false

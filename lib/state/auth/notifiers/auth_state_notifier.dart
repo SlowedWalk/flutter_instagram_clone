@@ -32,7 +32,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final result = await _authenticator.loginWithGoogle();
     final userId = _authenticator.userId;
     if (result == AuthResult.success && userId != null) {
-      log("saving user info ...");
       await saveUserInfo(userId: userId);
     }
     state = AuthState(
