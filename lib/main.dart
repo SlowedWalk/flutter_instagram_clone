@@ -8,7 +8,7 @@ import 'package:instagram_clone/state/auth/models/auth_results.dart';
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
 import 'package:instagram_clone/state/auth/providers/is_loading_provider.dart';
 import 'package:instagram_clone/views/components/loading/loading_screen.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+import 'package:instagram_clone/views/components/login/login_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,29 +106,29 @@ class MainView extends StatelessWidget {
   }
 }
 
-// for when the user is not logged in
-class LoginView extends ConsumerWidget {
-  const LoginView({Key? key}) : super(key: key);
+// // for when the user is not logged in
+// class LoginView extends ConsumerWidget {
+//   const LoginView({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login View'),
-      ),
-      body: Center(
-        child: SizedBox(
-          height: 50,
-          child: SignInButton(
-            Buttons.google,
-            text: "Sign up with Google",
-            onPressed: ref.read(authStateProvider.notifier).loginWithGoogle,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Login View'),
+//       ),
+//       body: Center(
+//         child: SizedBox(
+//           height: 60,
+//           child: SignInButton(
+//             Buttons.google,
+//             text: "Google",
+//             onPressed: ref.read(authStateProvider.notifier).loginWithGoogle,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // https://hitech-instagram-clone.firebaseapp.com/__/auth/handler
 // import com.facebook.FacebookSdk;
