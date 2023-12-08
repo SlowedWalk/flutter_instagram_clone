@@ -7,6 +7,7 @@ import 'package:instagram_clone/firebase_options.dart';
 import 'package:instagram_clone/state/auth/models/auth_results.dart';
 import 'package:instagram_clone/state/auth/providers/auth_state_provider.dart';
 import 'package:instagram_clone/state/auth/providers/is_loading_provider.dart';
+import 'package:instagram_clone/views/components/animations/data_not_found_animation_view.dart';
 import 'package:instagram_clone/views/components/loading/loading_screen.dart';
 import 'package:instagram_clone/views/components/login/login_view.dart';
 
@@ -65,44 +66,47 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Main View'),
-        ),
-        body: Consumer(builder: (_, ref, child) {
-          final isLoading = ref.watch(authStateProvider).isLoading;
-          return isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: NetworkImage(currentUser!.photoURL!)),
-                        ),
-                      ),
-                      Text(currentUser.email!),
-                      Text(currentUser.displayName ?? ""),
-                      MaterialButton(
-                        onPressed: () async {
-                          await ref.read(authStateProvider.notifier).logOut();
-                        },
-                        color: Colors.red,
-                        child: const Text("Sign Out"),
-                      )
-                    ],
-                  ),
-                );
-        }));
+      appBar: AppBar(
+        title: const Text('Main View'),
+      ),
+      body: Consumer(builder: (_, ref, child) {
+        return const DataNotFoundAnimationView();
+        // final isLoading = ref.watch(authStateProvider).isLoading;
+        // return isLoading
+        //   ? const Center(
+        //       child: CircularProgressIndicator(),
+        //     )
+        //   : SizedBox(
+        //     width: MediaQuery.of(context).size.width,
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       mainAxisSize: MainAxisSize.max,
+        //       children: [
+        //         Container(
+        //           height: 100,
+        //           width: 100,
+        //           decoration: BoxDecoration(
+        //             shape: BoxShape.circle,
+        //             image: DecorationImage(
+        //                 image: NetworkImage(currentUser!.photoURL!)),
+        //           ),
+        //         ),
+        //         Text(currentUser.email!),
+        //         Text(currentUser.displayName ?? ""),
+        //         MaterialButton(
+        //           onPressed: () async {
+        //             await ref.read(authStateProvider.notifier).logOut();
+        //           },
+        //           color: Colors.red,
+        //           child: const Text("Sign Out"),
+        //         )
+        //       ],
+        //     ),
+        //   );
+        }
+      )
+    );
   }
 }
 
