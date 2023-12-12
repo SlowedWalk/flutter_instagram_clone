@@ -2,12 +2,6 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Strings {
-  static const allowLikesTitle = 'Allow Likes';
-  static const allowLikesDescription = 'By allowing likes, you will be able to see how many people liked your posts.';
-  static const allowLikesStorageKey = 'allow_likes';
-  static const allowCommentsTitle = 'allow comments';
-  static const allowCommentsDescription = 'By allowing comments, users will be able to comment on your posts.';
-  static const allowCommentsStorageKey = 'allow_comments';
   static const comment = 'comment';
   static const loading = 'Loading...';
   static const people = 'people';
@@ -21,7 +15,7 @@ class Strings {
   static const alreadyHaveAnAccount = 'Already have an account?';
   static const appName = 'Hitech-Insta';
   static const welcomeToApp = 'Welcome to $appName';
-  static const youHaveNoPostsYet = 'You have no posts yet 👀. Press either the video-upload ot photo-i^load buttons to the top right of the screen on order to upload your first post';
+  static const youHaveNoPostsYet = 'You have no posts yet 👀. Press either the video-upload buttons to the top right of the screen on order to upload your first post';
   static const youHaveNoNotificationsYet = 'You have no notifications yet 👀';
   static const noPostsAvailable = 'Nobody seems to have made any posts yet. Why don\'t you take the lead?';
   static const enterYourSearchTerm = 'Enter your search term in order to find people to follow.';
